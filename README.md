@@ -1,84 +1,70 @@
-# Learning Task Manager — Local Run & Troubleshooting
+# Getting Started with Create React App
 
-This repository contains a Node/Express backend and a React (Create React App) frontend for a simple task management app with teacher/student roles.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Prerequisites
-- Node.js (v16+ recommended)
-- npm
-- MongoDB (Atlas or local). Provide a `MONGODB_URI` in `server/.env` if using a remote DB.
+## Available Scripts
 
-## Quick start
+In the project directory, you can run:
 
-1) Start the backend (in a terminal):
+### `npm start`
 
-```powershell
-Set-Location 'C:\Users\palle\OneDrive\Desktop\learning-task-manager\server'
-$env:PORT=8001
-npm run dev
-```
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Expected output: `MongoDB Connected` and `Server running on port 8001`.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-2) Start the frontend (in a separate terminal):
+### `npm test`
 
-```powershell
-Set-Location 'C:\Users\palle\OneDrive\Desktop\learning-task-manager\client'
-npm start
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-The client is configured to proxy API requests to `http://localhost:8001` (see `client/package.json`).
+### `npm run build`
 
-## API endpoints (examples)
-- POST `/api/auth/register` — register (body: `name,email,password,role[,teacherId]`)
-- POST `/api/auth/login` — login (body: `email,password`) — returns `{ token, role, userId }`
-- GET `/api/tasks` — list tasks (role-based)
-- POST `/api/tasks` — create task (teachers can assign tasks to students)
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Example `Invoke-RestMethod` (PowerShell) to register a teacher:
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-```powershell
-Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8001/api/auth/register -Body (@{ name='Teacher'; email='teacher@example.com'; password='password'; role='teacher' } | ConvertTo-Json) -ContentType 'application/json'
-```
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-If `localhost` fails, use `127.0.0.1` (IPv4) as shown above.
+### `npm run eject`
 
-## Running server tests
-From the `server` folder:
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-```powershell
-Set-Location 'C:\Users\palle\OneDrive\Desktop\learning-task-manager\server'
-npm test
-```
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Tests use an in-memory MongoDB; they do not require your production database.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-## Troubleshooting connectivity
-- If client requests show `Network error` or PowerShell reports `Unable to connect to the remote server`:
-  - Ensure the server process is running and shows `Server running on port 8001`.
-  - Check listeners and PIDs:
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-```powershell
-netstat -ano | findstr :8001
-```
+## Learn More
 
-  - If a PID is returned, inspect it:
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-```powershell
-Get-Process -Id <PID>
-```
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-  - Check TCP connectivity (IPv4 and hostname):
+### Code Splitting
 
-```powershell
-Test-NetConnection -ComputerName 127.0.0.1 -Port 8001 -InformationLevel Detailed
-Test-NetConnection -ComputerName localhost -Port 8001 -InformationLevel Detailed
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-  - If `127.0.0.1` works but `localhost` doesn't, your system resolved `localhost` to IPv6 (e.g., `::1`). Use `127.0.0.1` or adjust the hosts file.
-  - If the server starts and immediately exits, paste the terminal logs here — common causes: missing `MONGODB_URI`, port conflict, or unhandled exceptions.
+### Analyzing the Bundle Size
 
-## Notes
-- The client expects the backend to return `userId` and `token` on successful login.
-- During development we use `nodemon` in the server for auto-reload.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-If you want, I can also add a server-specific `README.md` inside `server/` or open this file for you to view. Tell me if you prefer that.
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
